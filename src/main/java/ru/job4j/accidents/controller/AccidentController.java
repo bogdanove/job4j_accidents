@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.accidents.model.Accident;
+import ru.job4j.accidents.model.AccidentType;
 import ru.job4j.accidents.service.AccidentService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -17,12 +21,14 @@ public class AccidentController {
     private final AccidentService accidents;
 
     @GetMapping("/createAccident")
-    public String viewCreateAccident() {
+    public String viewCreateAccident(Model model) {
+        model.addAttribute("types", accidents.findAllAccidentTypes());
         return "accidents/createAccident";
     }
 
     @PostMapping("/saveAccident")
     public String save(@ModelAttribute Accident accident, Model model) {
+        accident.setType(accidents.findAccidentTypeById(accident.getType().getId()));
         if (!accidents.add(accident)) {
             model.addAttribute("message", "Произошла ошибка, инцедент не сохранен!");
             return "errors/404";

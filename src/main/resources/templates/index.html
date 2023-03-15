@@ -37,6 +37,7 @@
         <tr>
             <th>Имя</th>
             <th>Действие</th>
+            <th>Тип</th>
             <th>Описание</th>
             <th>Адрес</th>
         </tr>
@@ -49,6 +50,7 @@
                     <span>Редактировать</span>
                 </a>
             </td>
+            <td th:text="${acc?.type?.name}"/>
             <td th:text="${acc.text}"/>
             <td th:text="${acc.address}"/>
         </tr>
