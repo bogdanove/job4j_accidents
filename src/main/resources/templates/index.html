@@ -32,6 +32,22 @@
         </div>
     </nav>
     <br>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Описание</th>
+            <th>Адрес</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="acc: ${accidents}" class="white">
+            <td th:text="${acc.name}"/>
+            <td th:text="${acc.text}"/>
+            <td th:text="${acc.address}"/>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>
