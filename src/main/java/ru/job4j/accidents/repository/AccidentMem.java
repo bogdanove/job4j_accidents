@@ -17,6 +17,11 @@ public class AccidentMem {
         return accidents.values();
     }
 
+    public boolean add(Accident accident) {
+        accident.setId(accidents.size() + 1);
+        return accidents.put(accident.getId(), accident) == null;
+    }
+
     @PostConstruct
     public void fillStore() {
         var acc1 = new Accident(1, "SomeName1", "SomeDescription1", "SomeAddress1");
