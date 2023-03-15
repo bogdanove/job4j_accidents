@@ -20,4 +20,12 @@ public class AccidentService {
     public boolean add(Accident accident) {
         return store.add(accident);
     }
+
+    public Accident findById(int id) {
+        return store.findById(id);
+    }
+
+    public boolean replace(Accident accident) {
+        return store.replace(accident);
+    }
 }

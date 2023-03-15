@@ -36,6 +36,7 @@
         <thead>
         <tr>
             <th>Имя</th>
+            <th>Действие</th>
             <th>Описание</th>
             <th>Адрес</th>
         </tr>
@@ -43,6 +44,11 @@
         <tbody>
         <tr th:each="acc: ${accidents}" class="white">
             <td th:text="${acc.name}"/>
+            <td>
+                <a th:href="@{|/formUpdate?id=${acc.id}|}">
+                    <span>Редактировать</span>
+                </a>
+            </td>
             <td th:text="${acc.text}"/>
             <td th:text="${acc.address}"/>
         </tr>

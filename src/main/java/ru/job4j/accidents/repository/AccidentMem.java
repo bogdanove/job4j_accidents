@@ -22,6 +22,14 @@ public class AccidentMem {
         return accidents.put(accident.getId(), accident) == null;
     }
 
+    public Accident findById(int id) {
+        return accidents.get(id);
+    }
+
+    public boolean replace(Accident accident) {
+        return accidents.replace(accident.getId(), accident) == null;
+    }
+
     @PostConstruct
     public void fillStore() {
         var acc1 = new Accident(1, "SomeName1", "SomeDescription1", "SomeAddress1");

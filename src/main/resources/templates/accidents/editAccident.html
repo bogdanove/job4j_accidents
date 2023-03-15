@@ -39,6 +39,20 @@
             <div class="card-header">
                 Редактирование инцедента.
             </div>
+            <div class="card-body">
+                <form th:action="@{/update}" method="POST" th:object="${accident}">
+                    <div class="form-group">
+                        <input type="hidden" name="id" th:field="*{id}"/>
+                        <label for="name">Имя</label>
+                        <input type="text" class="form-control" name="name" id="name" th:field="*{name}">
+                        <label for="text">Описание</label>
+                        <input type="text" class="form-control" name="text" id="text" th:field="*{text}">
+                        <label for="address">Адрес</label>
+                        <input type="text" class="form-control" name="address" id="address" th:field="*{address}">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
