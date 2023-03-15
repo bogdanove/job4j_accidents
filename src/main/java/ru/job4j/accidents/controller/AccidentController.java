@@ -11,7 +11,9 @@ import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.AccidentType;
 import ru.job4j.accidents.service.AccidentService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -23,12 +25,14 @@ public class AccidentController {
     @GetMapping("/createAccident")
     public String viewCreateAccident(Model model) {
         model.addAttribute("types", accidents.findAllAccidentTypes());
+        model.addAttribute("rules", accidents.findAllRules());
         return "accidents/createAccident";
     }
 
     @PostMapping("/saveAccident")
-    public String save(@ModelAttribute Accident accident, Model model) {
+    public String save(@ModelAttribute Accident accident, Model model, HttpServletRequest req) {
         accident.setType(accidents.findAccidentTypeById(accident.getType().getId()));
+        Arrays.stream(req.getParameterValues("rIds")).forEach(s -> accident.getRules().add(accidents.findRuleById(Integer.parseInt(s))));
         if (!accidents.add(accident)) {
             model.addAttribute("message", "Произошла ошибка, инцедент не сохранен!");
             return "errors/404";

@@ -3,6 +3,7 @@ package ru.job4j.accidents.repository;
 import org.springframework.stereotype.Repository;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.AccidentType;
+import ru.job4j.accidents.model.Rule;
 
 import javax.annotation.PostConstruct;
 import java.util.Collection;
@@ -16,12 +17,18 @@ public class AccidentMem {
 
     private Map<Integer, AccidentType> accidentTypes = new ConcurrentHashMap<>();
 
+    private Map<Integer, Rule> rules = new ConcurrentHashMap<>();
+
     public Collection<Accident> getAllAccidents() {
         return accidents.values();
     }
 
     public Collection<AccidentType> getAllAccidentTypes() {
         return accidentTypes.values();
+    }
+
+    public Collection<Rule> getAllRules() {
+        return rules.values();
     }
 
     public boolean add(Accident accident) {
@@ -37,15 +44,19 @@ public class AccidentMem {
         return accidentTypes.get(id);
     }
 
+    public Rule findRuleById(int id) {
+        return rules.get(id);
+    }
+
     public boolean replace(Accident accident) {
         return accidents.replace(accident.getId(), accident) == null;
     }
 
     @PostConstruct
     public void fillStore() {
-        var acc1 = new Accident(1, "SomeName1", "SomeDescription1", "SomeAddress1", null);
-        var acc2 = new Accident(2, "SomeName2", "SomeDescription2", "SomeAddress2", null);
-        var acc3 = new Accident(3, "SomeName3", "SomeDescription3", "SomeAddress3", null);
+        var acc1 = new Accident(1, "SomeName1", "SomeDescription1", "SomeAddress1", null, null);
+        var acc2 = new Accident(2, "SomeName2", "SomeDescription2", "SomeAddress2", null, null);
+        var acc3 = new Accident(3, "SomeName3", "SomeDescription3", "SomeAddress3", null, null);
         accidents.put(acc1.getId(), acc1);
         accidents.put(acc2.getId(), acc2);
         accidents.put(acc3.getId(), acc3);
@@ -55,6 +66,11 @@ public class AccidentMem {
         accidentTypes.put(accT1.getId(), accT1);
         accidentTypes.put(acc2.getId(), accT2);
         accidentTypes.put(accT3.getId(), accT3);
-
+        var rul1 = new Rule(1, "Статья. 1");
+        var rul2 = new Rule(2, "Статья. 2");
+        var rul3 = new Rule(3, "Статья. 3");
+        rules.put(rul1.getId(), rul1);
+        rules.put(rul2.getId(), rul2);
+        rules.put(rul3.getId(), rul3);
     }
 }
