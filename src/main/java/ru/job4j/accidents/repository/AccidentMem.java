@@ -9,11 +9,14 @@ import javax.annotation.PostConstruct;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class AccidentMem {
 
     private Map<Integer, Accident> accidents = new ConcurrentHashMap<>();
+
+    private AtomicInteger accId = new AtomicInteger();
 
     private Map<Integer, AccidentType> accidentTypes = new ConcurrentHashMap<>();
 
@@ -32,7 +35,7 @@ public class AccidentMem {
     }
 
     public boolean add(Accident accident) {
-        accident.setId(accidents.size() + 1);
+        accident.setId(accId.incrementAndGet());
         return accidents.put(accident.getId(), accident) == null;
     }
 
@@ -54,9 +57,9 @@ public class AccidentMem {
 
     @PostConstruct
     public void fillStore() {
-        var acc1 = new Accident(1, "SomeName1", "SomeDescription1", "SomeAddress1", null, null);
-        var acc2 = new Accident(2, "SomeName2", "SomeDescription2", "SomeAddress2", null, null);
-        var acc3 = new Accident(3, "SomeName3", "SomeDescription3", "SomeAddress3", null, null);
+        var acc1 = new Accident(accId.incrementAndGet(), "SomeName1", "SomeDescription1", "SomeAddress1", null, null);
+        var acc2 = new Accident(accId.incrementAndGet(), "SomeName2", "SomeDescription2", "SomeAddress2", null, null);
+        var acc3 = new Accident(accId.incrementAndGet(), "SomeName3", "SomeDescription3", "SomeAddress3", null, null);
         accidents.put(acc1.getId(), acc1);
         accidents.put(acc2.getId(), acc2);
         accidents.put(acc3.getId(), acc3);
