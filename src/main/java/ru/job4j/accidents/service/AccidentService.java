@@ -7,6 +7,8 @@ import ru.job4j.accidents.model.AccidentType;
 import ru.job4j.accidents.model.Rule;
 import ru.job4j.accidents.repository.AccidentMem;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.Collection;
 
 @Service
@@ -27,7 +29,9 @@ public class AccidentService {
         return store.getAllRules();
     }
 
-    public boolean add(Accident accident) {
+    public boolean add(Accident accident, HttpServletRequest req) {
+        accident.setType(store.findAccidentTypeById(accident.getType().getId()));
+        Arrays.stream(req.getParameterValues("rIds")).forEach(s -> accident.getRules().add(store.findRuleById(Integer.parseInt(s))));
         return store.add(accident);
     }
 

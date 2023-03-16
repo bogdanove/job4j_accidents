@@ -31,9 +31,7 @@ public class AccidentController {
 
     @PostMapping("/saveAccident")
     public String save(@ModelAttribute Accident accident, Model model, HttpServletRequest req) {
-        accident.setType(accidents.findAccidentTypeById(accident.getType().getId()));
-        Arrays.stream(req.getParameterValues("rIds")).forEach(s -> accident.getRules().add(accidents.findRuleById(Integer.parseInt(s))));
-        if (!accidents.add(accident)) {
+        if (!accidents.add(accident, req)) {
             model.addAttribute("message", "Произошла ошибка, инцедент не сохранен!");
             return "errors/404";
         }
