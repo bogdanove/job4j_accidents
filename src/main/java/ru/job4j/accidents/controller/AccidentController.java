@@ -48,7 +48,7 @@ public class AccidentController {
 
     @PostMapping("/update")
     public String doneAccident(@ModelAttribute Accident accident, Model model) {
-        if (accidents.replace(accident)) {
+        if (!accidents.replace(accident)) {
             model.addAttribute("message", "Произошла ошибка, обновление не выполнено!");
             return "errors/404";
         }

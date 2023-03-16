@@ -52,7 +52,7 @@ public class AccidentMem {
     }
 
     public boolean replace(Accident accident) {
-        return accidents.replace(accident.getId(), accident) == null;
+        return accidents.replace(accident.getId(), accident) != null;
     }
 
     @PostConstruct
