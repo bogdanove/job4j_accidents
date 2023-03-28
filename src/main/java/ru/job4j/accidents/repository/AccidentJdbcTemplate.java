@@ -17,15 +17,15 @@ import java.util.Set;
 public class AccidentJdbcTemplate {
     private final JdbcTemplate jdbc;
 
-    private final String INSERT_ACC = "insert into accidents (name, text, address, type_id) values (?, ?, ?, ?);";
-    private final String INSERT_ACC_RULES = "insert into accidents_rules(acc_id, rul_id) values (?, ?);";
-    private final String SELECT_ACC_BY_ID = "select id, name, text, address, type_id from accidents where id=?;";
-    private final String SELECT_ACC = "select id, name, text, address, type_id from accidents;";
-    private final String SELECT_TYPE_BY_ID = "select id, name from types where id=?;";
-    private final String SELECT_RULE_BY_ID = "select id, name from rules where id=?;";
-    private final String SELECT_TYPES = "select id, name from types;";
-    private final String SELECT_RULES = "select id, name from rules;";
-    private final String UPDATE_ACC = "update accidents set name=?, text=?, address=? where id=?;";
+    private final static String INSERT_ACC = "insert into accidents (name, text, address, type_id) values (?, ?, ?, ?);";
+    private final static String INSERT_ACC_RULES = "insert into accidents_rules(acc_id, rul_id) values (?, ?);";
+    private final static String SELECT_ACC_BY_ID = "select id, name, text, address, type_id from accidents where id=?;";
+    private final static String SELECT_ACC = "select id, name, text, address, type_id from accidents;";
+    private final static String SELECT_TYPE_BY_ID = "select id, name from types where id=?;";
+    private final static String SELECT_RULE_BY_ID = "select id, name from rules where id=?;";
+    private final static String SELECT_TYPES = "select id, name from types;";
+    private final static String SELECT_RULES = "select id, name from rules;";
+    private final static String UPDATE_ACC = "update accidents set name=?, text=?, address=? where id=?;";
 
     public boolean save(Accident accident) {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
