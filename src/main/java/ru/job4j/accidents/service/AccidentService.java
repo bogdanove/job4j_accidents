@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.AccidentType;
 import ru.job4j.accidents.model.Rule;
+import ru.job4j.accidents.repository.AccidentJdbcTemplate;
 import ru.job4j.accidents.repository.AccidentMem;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,39 +16,39 @@ import java.util.Collection;
 @AllArgsConstructor
 public class AccidentService {
 
-    private AccidentMem store;
+    private AccidentJdbcTemplate template;
 
     public Collection<Accident> findAllAccidents() {
-        return store.getAllAccidents();
+        return template.getAll();
     }
 
     public Collection<AccidentType> findAllAccidentTypes() {
-        return store.getAllAccidentTypes();
+        return template.getAllAccidentTypes();
     }
 
     public Collection<Rule> findAllRules() {
-        return store.getAllRules();
+        return template.getAllRules();
     }
 
     public boolean add(Accident accident, HttpServletRequest req) {
-        accident.setType(store.findAccidentTypeById(accident.getType().getId()));
-        Arrays.stream(req.getParameterValues("rIds")).forEach(s -> accident.getRules().add(store.findRuleById(Integer.parseInt(s))));
-        return store.add(accident);
+        accident.setType(template.findAccidentTypeById(accident.getType().getId()));
+        Arrays.stream(req.getParameterValues("rIds")).forEach(s -> accident.getRules().add(template.findRuleById(Integer.parseInt(s))));
+        return template.save(accident);
     }
 
     public Accident findById(int id) {
-        return store.findAccidentById(id);
+        return template.findAccidentById(id);
     }
 
     public AccidentType findAccidentTypeById(int id) {
-        return store.findAccidentTypeById(id);
+        return template.findAccidentTypeById(id);
     }
 
     public Rule findRuleById(int id) {
-        return store.findRuleById(id);
+        return template.findRuleById(id);
     }
 
     public boolean replace(Accident accident) {
-        return store.replace(accident);
+        return template.replace(accident);
     }
 }
